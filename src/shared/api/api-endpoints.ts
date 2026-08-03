@@ -1,10 +1,19 @@
 // src/shared/api/api-endpoints.ts
 
-export const apiEndpoints = {
-  auth: {
-    login: "/auth/login",
-    logout: "/auth/logout",
-    me: "/auth/me",
-    refresh: "/auth/refresh",
+export const API_ENDPOINTS = {
+  AUTH: {
+    LOGIN: "/auth/login",
+    LOGOUT: "/auth/logout",
+    ME: "/auth/me",
+
+    OTP: {
+      SEND: "/auth/otp/send",
+      VERIFY: "/auth/otp/verify",
+    },
+
+    PASSWORD: {
+      FORGOT: "/auth/forgot-password",
+      RESET: "/auth/reset-password",
+    },
   },
 } as const;

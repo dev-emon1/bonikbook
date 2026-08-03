@@ -1,19 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-
-import { clearSession, saveSession } from "../utils/auth-storage";
-import type { AuthSession, AuthState, AuthUser } from "../types";
+import type { AuthState, AuthUser } from "../types";
 
 const initialState: AuthState = {
   isAuthenticated: false,
+  isInitialized: false,
   isLoading: false,
-
-  accessToken: null,
-  refreshToken: null,
-
+  emailVerified: false,
   user: null,
-  role: null,
-
-  permissions: [],
 };
 
 const authSlice = createSlice({
@@ -22,59 +15,51 @@ const authSlice = createSlice({
   initialState,
 
   reducers: {
-    loginSuccess(state, action: PayloadAction<AuthSession>) {
-      state.isAuthenticated = true;
-
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-
-      state.user = action.payload.user;
-      state.role = action.payload.role;
-
-      state.permissions = action.payload.permissions;
-
-      saveSession(action.payload);
-    },
-
-    bootstrapSession(state, action: PayloadAction<AuthSession>) {
-      state.isAuthenticated = true;
-
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-
-      state.user = action.payload.user;
-      state.role = action.payload.role;
-
-      state.permissions = action.payload.permissions;
-    },
-
     setLoading(state, action: PayloadAction<boolean>) {
       state.isLoading = action.payload;
     },
 
-    updateUser(state, action: PayloadAction<AuthUser | null>) {
+    setInitialized(state, action: PayloadAction<boolean>) {
+      state.isInitialized = action.payload;
+    },
+
+    setUser(state, action: PayloadAction<AuthUser>) {
       state.user = action.payload;
+      state.isAuthenticated = true;
     },
 
-    updatePermissions(state, action: PayloadAction<string[]>) {
-      state.permissions = action.payload;
+    clearUser(state) {
+      state.user = null;
+      state.isAuthenticated = false;
+      state.emailVerified = false;
     },
 
-    logout() {
-      clearSession();
+    setEmailVerified(state, action: PayloadAction<boolean>) {
+      state.emailVerified = action.payload;
+    },
 
-      return initialState;
+    resetAuth(state) {
+      state.user = null;
+      state.isAuthenticated = false;
+      state.isInitialized = false;
+      state.isLoading = false;
+      state.emailVerified = false;
+    },
+
+    setAuthenticated(state, action: PayloadAction<boolean>) {
+      state.isAuthenticated = action.payload;
     },
   },
 });
 
 export const {
-  loginSuccess,
-  bootstrapSession,
-  logout,
   setLoading,
-  updateUser,
-  updatePermissions,
+  setInitialized,
+  setUser,
+  clearUser,
+  setEmailVerified,
+  resetAuth,
+  setAuthenticated,
 } = authSlice.actions;
 
 export default authSlice.reducer;

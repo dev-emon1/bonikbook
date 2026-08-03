@@ -1,13 +1,21 @@
 // src/app/config/env.ts
 
-export const env = {
-  appName: import.meta.env.VITE_APP_NAME ?? "BonikBook",
+const env = {
+  app: {
+    name: import.meta.env.VITE_APP_NAME,
+    environment: import.meta.env.VITE_APP_ENV,
+  },
 
-  apiBaseUrl: import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8000/api",
+  api: {
+    baseUrl: import.meta.env.VITE_API_URL,
+  },
 
-  appUrl: import.meta.env.VITE_APP_URL ?? "http://localhost:5173",
+  auth: {
+    enable2FA: import.meta.env.VITE_ENABLE_2FA === "true",
 
-  isDev: import.meta.env.DEV,
-
-  isProd: import.meta.env.PROD,
+    enableEmailVerification:
+      import.meta.env.VITE_ENABLE_EMAIL_VERIFICATION === "true",
+  },
 } as const;
+
+export default env;

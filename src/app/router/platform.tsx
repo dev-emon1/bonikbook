@@ -1,22 +1,24 @@
 import type { RouteObject } from "react-router";
 
-import DashboardPage from "@/modules/platform/dashboard/pages/dashboard-page";
-import DashboardLayout from "../layouts/dashboard-layout";
+import DashboardLayout from "@/app/layouts/dashboard-layout";
+import { AuthGuard } from "@/app/router/guards";
+
+import { dashboardRoutes } from "@/modules/platform/dashboard/routes";
 
 export const platformRoutes: RouteObject[] = [
   {
     path: "/platform",
-    element: <DashboardLayout />,
+    element: (
+      <AuthGuard>
+        <DashboardLayout />
+      </AuthGuard>
+    ),
     children: [
-      {
-        index: true,
-        element: <DashboardPage />,
-      },
+      ...dashboardRoutes,
 
-      {
-        path: "dashboard",
-        element: <DashboardPage />,
-      },
+      // tenantsRoutes
+      // packagesRoutes
+      // subscriptionsRoutes
     ],
   },
 ];

@@ -1,46 +1,67 @@
-import { baseApi } from "@/services/api/base-api";
-import { loginResponse, meResponse, users } from "@/services/mock/auth";
-
-import type { LoginRequest, LoginResponse, MeResponse } from "../types";
+import { baseApi, API_ENDPOINTS } from "@/shared/api";
+import type {
+  LoginRequest,
+  LoginResponse,
+  MeResponse,
+  SendOtpRequest,
+  VerifyOtpRequest,
+} from "../types";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<LoginResponse, LoginRequest>({
-      async queryFn(payload) {
-        await new Promise((resolve) => setTimeout(resolve, 500));
+      query: (body) => ({
+        url: API_ENDPOINTS.AUTH.LOGIN,
+        method: "POST",
+        body,
+      }),
 
-        const user = users.find(
-          (item) =>
-            item.email === payload.email && item.password === payload.password,
-        );
+      invalidatesTags: ["Auth"],
+    }),
 
-        if (!user) {
-          return {
-            error: {
-              status: 401,
-              data: {
-                message: "Invalid email or password.",
-              },
-            },
-          };
-        }
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: API_ENDPOINTS.AUTH.LOGOUT,
+        method: "POST",
+      }),
 
-        return {
-          data: loginResponse as LoginResponse,
-        };
-      },
+      invalidatesTags: ["Auth"],
     }),
 
     me: builder.query<MeResponse, void>({
-      async queryFn() {
-        await new Promise((resolve) => setTimeout(resolve, 300));
+      query: () => ({
+        url: API_ENDPOINTS.AUTH.ME,
+        method: "GET",
+      }),
 
-        return {
-          data: meResponse as MeResponse,
-        };
-      },
+      providesTags: ["Auth"],
+    }),
+
+    sendOtp: builder.mutation<void, SendOtpRequest>({
+      query: (body) => ({
+        url: API_ENDPOINTS.AUTH.OTP.SEND,
+        method: "POST",
+        body,
+      }),
+    }),
+
+    verifyOtp: builder.mutation<void, VerifyOtpRequest>({
+      query: (body) => ({
+        url: API_ENDPOINTS.AUTH.OTP.VERIFY,
+        method: "POST",
+        body,
+      }),
     }),
   }),
+
+  overrideExisting: false,
 });
 
-export const { useLoginMutation, useMeQuery, useLazyMeQuery } = authApi;
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useMeQuery,
+  useLazyMeQuery,
+  useSendOtpMutation,
+  useVerifyOtpMutation,
+} = authApi;

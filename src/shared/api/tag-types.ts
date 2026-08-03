@@ -1,9 +1,9 @@
 // src/shared/api/tag-types.ts
 
-export const tagTypes = [
+export const TAG_TYPES = [
   "Auth",
-  "Users",
-  "Roles",
-  "Permissions",
-  "Products",
+  "Profile",
+  "User",
+  "Role",
+  "Permission",
 ] as const;

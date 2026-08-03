@@ -1,13 +1,10 @@
-// src/app/store/redux/root-reducer.ts
-
 import { combineReducers } from "@reduxjs/toolkit";
 
 import { baseApi } from "@/shared/api";
+import { authReducer } from "@/modules/auth/store";
 
 export const rootReducer = combineReducers({
-  [baseApi.reducerPath]: baseApi.reducer,
+  auth: authReducer,
 
-  // Feature reducers
-  // auth: authReducer,
-  // ui: uiReducer,
+  [baseApi.reducerPath]: baseApi.reducer,
 });

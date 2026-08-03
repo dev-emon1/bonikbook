@@ -1,10 +1,5 @@
 import type { RouteObject } from "react-router";
 
-import LoginPage from "@/modules/auth/pages/login-page";
+import { authenticationRoutes } from "@/modules/auth/routes";
 
-export const publicRoutes: RouteObject[] = [
-  {
-    path: "/login",
-    Component: LoginPage,
-  },
-];
+export const publicRoutes: RouteObject[] = [...authenticationRoutes];

@@ -1,15 +1,27 @@
-import type { RouteObject } from "react-router-dom";
+import type { RouteObject } from "react-router";
 
-import { AuthLayout } from "@/app/layouts";
+import AuthLayout from "@/app/layouts/auth-layout";
+import { GuestGuard } from "@/app/router/guards";
 import { ROUTE_PATHS } from "@/app/router/route-paths";
 
-import { ForgotPasswordPage, ResetPasswordPage } from "../pages";
+import {
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  // VerifyEmailPage,
+  // VerifyOtpPage,
+} from "../pages";
 import LoginPage from "../pages/login-page";
 
 export const authenticationRoutes: RouteObject[] = [
   {
-    path: "/",
-    element: <AuthLayout />,
+    path: ROUTE_PATHS.ROOT,
+
+    element: (
+      <GuestGuard>
+        <AuthLayout />
+      </GuestGuard>
+    ),
+
     children: [
       {
         index: true,
@@ -27,6 +39,15 @@ export const authenticationRoutes: RouteObject[] = [
         path: ROUTE_PATHS.AUTH.RESET_PASSWORD,
         element: <ResetPasswordPage />,
       },
+
+      // {
+      //   path: ROUTE_PATHS.AUTH.VERIFY_EMAIL,
+      //   element: <VerifyEmailPage />,
+      // },
+      // {
+      //   path: ROUTE_PATHS.AUTH.VERIFY_OTP,
+      //   element: <VerifyOtpPage />,
+      // },
     ],
   },
 ];
