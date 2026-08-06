@@ -1,5 +1,3 @@
-import { WizardFooter } from "@/shared/components/platform/wizard";
-
 import { AdministratorSummary } from "../sections/review/administrator-summary";
 import { Confirmation } from "../sections/review/confirmation";
 import { OrganizationSummary } from "../sections/review/organization-summary";
@@ -20,15 +18,6 @@ export function ReviewStep() {
 
         <Confirmation />
       </div>
-
-      <WizardFooter
-        showDraft
-        previousLabel="Previous"
-        nextLabel="Create Client"
-        onPrevious={() => {}}
-        onDraft={() => {}}
-        onNext={() => {}}
-      />
     </>
   );
 }
