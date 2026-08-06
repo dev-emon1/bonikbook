@@ -27,9 +27,11 @@ export const dashboardNavigation: NavigationGroup = {
 
           title: "Overview",
 
-          href: platformRoutes.dashboard,
+          href: `${platformRoutes.dashboard}/overview`,
 
           icon: LayoutDashboard,
+
+          exact: true,
         },
 
         {

@@ -46,7 +46,7 @@ function SidebarLayout({ variant }: AppSidebarProps) {
       <SidebarFooter
         collapsed={collapsed}
         user={{
-          name: "Emon Hossain",
+          name: "John Doe",
         }}
         workspace={{
           name: "BonikBook ERP",

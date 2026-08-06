@@ -11,6 +11,7 @@ export const dashboardRoutes: RouteObject[] = [
     children: [
       {
         index: true,
+        path: "overview",
         element: <OverviewPage />,
       },
       {

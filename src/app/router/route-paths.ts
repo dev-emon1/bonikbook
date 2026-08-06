@@ -12,7 +12,7 @@ export const ROUTE_PATHS = {
 
   PLATFORM: {
     ROOT: "/platform",
-    DASHBOARD: "/platform/dashboard",
+    DASHBOARD: "/platform/dashboard/overview",
   },
 
   WORKSPACE: {

@@ -1,7 +1,7 @@
 import { PLATFORM_OWNER_PREFIX } from "../constants";
 
 export const platformRoutes = {
-  dashboard: PLATFORM_OWNER_PREFIX,
+  dashboard: `${PLATFORM_OWNER_PREFIX}/dashboard`,
 
   tenants: `${PLATFORM_OWNER_PREFIX}/tenants`,
 

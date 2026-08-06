@@ -15,7 +15,7 @@ import { env } from "@/app/config";
 import { useLazyMeQuery, useLoginMutation } from "../api";
 import { DEV_DEFAULT_LOGIN } from "../constants";
 import { loginSchema, type LoginFormValues } from "../schemas";
-import { setAuthenticated, setEmailVerified, setUser } from "../store";
+import { setEmailVerified, setUser } from "../store";
 import { tokenStorage } from "../utils";
 
 import { AuthInput } from "./auth-input";

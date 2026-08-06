@@ -31,17 +31,17 @@ export const businessManagementNavigation: NavigationGroup = {
 
   sections: [
     {
-      id: "tenant-management",
+      id: "client-management",
 
-      title: "Tenant Management",
+      title: "Client Management",
 
       icon: Building2,
 
       items: [
         {
-          id: "all-tenants",
+          id: "all-clients",
 
-          title: "All Tenants",
+          title: "All Clients",
 
           href: platformRoutes.tenants,
 
@@ -49,17 +49,17 @@ export const businessManagementNavigation: NavigationGroup = {
         },
 
         {
-          id: "tenant-onboarding",
+          id: "client-onboarding",
 
-          title: "Tenant Onboarding",
+          title: "Client Onboarding",
 
-          href: `${platformRoutes.tenants}/onboarding`,
+          href: `onboarding`,
 
           icon: UserPlus,
         },
 
         {
-          id: "pending-tenants",
+          id: "pending-clients",
 
           title: "Pending Approval",
 
@@ -69,9 +69,9 @@ export const businessManagementNavigation: NavigationGroup = {
         },
 
         {
-          id: "active-tenants",
+          id: "active-clients",
 
-          title: "Active Tenants",
+          title: "Active Clients",
 
           href: `${platformRoutes.tenants}/active`,
 
@@ -79,9 +79,9 @@ export const businessManagementNavigation: NavigationGroup = {
         },
 
         {
-          id: "suspended-tenants",
+          id: "suspended-clients",
 
-          title: "Suspended Tenants",
+          title: "Suspended Clients",
 
           href: `${platformRoutes.tenants}/suspended`,
 
@@ -89,9 +89,9 @@ export const businessManagementNavigation: NavigationGroup = {
         },
 
         {
-          id: "archived-tenants",
+          id: "archived-clients",
 
-          title: "Archived Tenants",
+          title: "Archived Clients",
 
           href: `${platformRoutes.tenants}/archived`,
 

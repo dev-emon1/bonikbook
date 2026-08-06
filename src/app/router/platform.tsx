@@ -4,6 +4,7 @@ import DashboardLayout from "@/app/layouts/dashboard-layout";
 import { AuthGuard } from "@/app/router/guards";
 
 import { dashboardRoutes } from "@/modules/platform/dashboard/routes";
+import { tenantsRoutes } from "@/modules/platform/tenant-management/routes/client.routes";
 
 export const platformRoutes: RouteObject[] = [
   {
@@ -16,7 +17,7 @@ export const platformRoutes: RouteObject[] = [
     children: [
       ...dashboardRoutes,
 
-      // tenantsRoutes
+      ...tenantsRoutes,
       // packagesRoutes
       // subscriptionsRoutes
     ],
