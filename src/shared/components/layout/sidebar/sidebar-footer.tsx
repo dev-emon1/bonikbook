@@ -15,18 +15,23 @@ export function SidebarFooter({
   workspace,
 }: SidebarFooterProps) {
   return (
-    <footer className="border-t border-sidebar-border bg-sidebar/95 p-3 backdrop-blur-xl">
+    <footer className="border-t border-sidebar-border bg-sidebar/95 p-2 backdrop-blur-xl">
       <motion.div
         layout
         transition={SIDEBAR_ANIMATION}
         className={cn(
           "overflow-hidden rounded-2xl border",
-          "border-border/60 bg-background/60",
+          collapsed ? "p-0" : "",
         )}
       >
-        <div className="flex items-center gap-3 p-3">
+        <div
+          className={cn(
+            "flex items-center p-3",
+            collapsed ? "justify-center" : "gap-3",
+          )}
+        >
           {/* Avatar */}
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
             {user?.avatar ? (
               <img
                 src={user.avatar}

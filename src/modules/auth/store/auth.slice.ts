@@ -7,6 +7,7 @@ const initialState: AuthState = {
   isLoading: false,
   emailVerified: false,
   user: null,
+  otpEmail: null,
 };
 
 const authSlice = createSlice({
@@ -38,12 +39,16 @@ const authSlice = createSlice({
       state.emailVerified = action.payload;
     },
 
+    setOtpEmail(state, action: PayloadAction<string | null>) {
+      state.otpEmail = action.payload;
+    },
+
     resetAuth(state) {
       state.user = null;
       state.isAuthenticated = false;
-      state.isInitialized = false;
       state.isLoading = false;
       state.emailVerified = false;
+      state.otpEmail = null;
     },
 
     setAuthenticated(state, action: PayloadAction<boolean>) {
@@ -58,6 +63,7 @@ export const {
   setUser,
   clearUser,
   setEmailVerified,
+  setOtpEmail,
   resetAuth,
   setAuthenticated,
 } = authSlice.actions;

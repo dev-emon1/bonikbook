@@ -4,7 +4,9 @@ import type {
   LoginResponse,
   MeResponse,
   SendOtpRequest,
+  SendOtpResponse,
   VerifyOtpRequest,
+  VerifyOtpResponse,
 } from "../types";
 
 export const authApi = baseApi.injectEndpoints({
@@ -37,7 +39,7 @@ export const authApi = baseApi.injectEndpoints({
       providesTags: ["Auth"],
     }),
 
-    sendOtp: builder.mutation<void, SendOtpRequest>({
+    sendOtp: builder.mutation<SendOtpResponse, SendOtpRequest>({
       query: (body) => ({
         url: API_ENDPOINTS.AUTH.OTP.SEND,
         method: "POST",
@@ -45,7 +47,7 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
-    verifyOtp: builder.mutation<void, VerifyOtpRequest>({
+    verifyOtp: builder.mutation<VerifyOtpResponse, VerifyOtpRequest>({
       query: (body) => ({
         url: API_ENDPOINTS.AUTH.OTP.VERIFY,
         method: "POST",

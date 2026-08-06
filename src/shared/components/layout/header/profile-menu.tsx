@@ -1,30 +1,37 @@
 import { ChevronDown, LogOut, Settings, User } from "lucide-react";
-
 import { motion } from "motion/react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
-
 import { Button } from "@/shared/ui/button";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/ui/dropdown-menu";
 
 import { HEADER_ANIMATION } from "./constants";
-
 import type { ProfileMenuProps } from "./types";
 
+import { useLogout } from "@/modules/auth/hooks/use-logout";
+import { useAppSelector } from "@/shared/hooks";
+import { selectUser } from "@/modules/auth/store";
+
 export function ProfileMenu({ user }: ProfileMenuProps) {
-  const profile = user ?? {
-    name: "Platform Owner",
-    email: "owner@bonikbook.com",
-    role: "Super Admin",
+  const { logout, isLoading } = useLogout();
+
+  const authUser = useAppSelector(selectUser);
+
+  const profile = {
+    name: user?.name ?? authUser?.name ?? "Platform Owner",
+
+    email: user?.email ?? authUser?.email ?? "owner@bonikbook.com",
+
+    role: user?.role ?? authUser?.user_type ?? "Super Admin",
+
+    avatar: user?.avatar,
   };
 
   const initials = profile.name
@@ -60,13 +67,12 @@ export function ProfileMenu({ user }: ProfileMenuProps) {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent align="end" className="w-64 rounded-xl">
-          <DropdownMenuLabel>
-            <div className="space-y-1">
-              <p className="font-medium">{profile.name}</p>
+          {/* Profile Info */}
+          <div className="space-y-1 px-2 py-2">
+            <p className="font-medium">{profile.name}</p>
 
-              <p className="text-xs text-muted-foreground">{profile.email}</p>
-            </div>
-          </DropdownMenuLabel>
+            <p className="text-xs text-muted-foreground">{profile.email}</p>
+          </div>
 
           <DropdownMenuSeparator />
 
@@ -84,9 +90,13 @@ export function ProfileMenu({ user }: ProfileMenuProps) {
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem className="text-destructive focus:text-destructive">
+          <DropdownMenuItem
+            variant="destructive"
+            disabled={isLoading}
+            onClick={logout}
+          >
             <LogOut className="mr-2 h-4 w-4" />
-            Sign Out
+            {isLoading ? "Signing Out..." : "Sign Out"}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

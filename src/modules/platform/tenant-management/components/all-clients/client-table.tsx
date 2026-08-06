@@ -2,9 +2,11 @@ import { DataTable } from "@/shared/components/platform/table";
 
 import { clients } from "../../mock";
 
-import { clientColumns } from "./client-columns";
+import { useClientColumns } from "./client-columns";
 
 export function ClientTable() {
+  const clientColumns = useClientColumns();
+
   return (
     <DataTable
       columns={clientColumns}

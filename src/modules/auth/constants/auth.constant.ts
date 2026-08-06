@@ -1,5 +1,5 @@
 export const DEV_DEFAULT_LOGIN = {
-  email: "admin@example.com",
+  email: "hossainemonmd7@gmail.com",
   password: "password",
   remember: true,
 } as const;

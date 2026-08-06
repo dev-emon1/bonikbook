@@ -4,13 +4,9 @@ import AuthLayout from "@/app/layouts/auth-layout";
 import { GuestGuard } from "@/app/router/guards";
 import { ROUTE_PATHS } from "@/app/router/route-paths";
 
-import {
-  ForgotPasswordPage,
-  ResetPasswordPage,
-  // VerifyEmailPage,
-  // VerifyOtpPage,
-} from "../pages";
+import { ForgotPasswordPage, ResetPasswordPage } from "../pages";
 import LoginPage from "../pages/login-page";
+import VerifyOtpPage from "../pages/verify-otp-page";
 
 export const authenticationRoutes: RouteObject[] = [
   {
@@ -44,10 +40,10 @@ export const authenticationRoutes: RouteObject[] = [
       //   path: ROUTE_PATHS.AUTH.VERIFY_EMAIL,
       //   element: <VerifyEmailPage />,
       // },
-      // {
-      //   path: ROUTE_PATHS.AUTH.VERIFY_OTP,
-      //   element: <VerifyOtpPage />,
-      // },
+      {
+        path: ROUTE_PATHS.AUTH.VERIFY_OTP,
+        element: <VerifyOtpPage />,
+      },
     ],
   },
 ];

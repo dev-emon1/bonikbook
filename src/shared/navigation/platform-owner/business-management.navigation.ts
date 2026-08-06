@@ -43,7 +43,7 @@ export const businessManagementNavigation: NavigationGroup = {
 
           title: "All Clients",
 
-          href: platformRoutes.tenants,
+          href: `${platformRoutes.tenants}/all-clients`,
 
           icon: Users,
         },
@@ -53,7 +53,7 @@ export const businessManagementNavigation: NavigationGroup = {
 
           title: "Client Onboarding",
 
-          href: `onboarding`,
+          href: `${platformRoutes.tenants}/onboarding`,
 
           icon: UserPlus,
         },

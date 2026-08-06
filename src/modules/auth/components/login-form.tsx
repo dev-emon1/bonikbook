@@ -10,13 +10,11 @@ import { Label } from "@/shared/ui/label";
 
 import { useAppDispatch } from "@/shared/hooks";
 import { ROUTE_PATHS } from "@/app/router/route-paths";
-import { env } from "@/app/config";
 
-import { useLazyMeQuery, useLoginMutation } from "../api";
+import { useLoginMutation, useSendOtpMutation } from "../api";
 import { DEV_DEFAULT_LOGIN } from "../constants";
 import { loginSchema, type LoginFormValues } from "../schemas";
-import { setEmailVerified, setUser } from "../store";
-import { tokenStorage } from "../utils";
+import { setOtpEmail } from "../store";
 
 import { AuthInput } from "./auth-input";
 import { PasswordInput } from "./password-input";
@@ -25,8 +23,9 @@ export function LoginForm() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const [login, { isLoading }] = useLoginMutation();
-  const [getMe] = useLazyMeQuery();
+  const [login, { isLoading: isLoginLoading }] = useLoginMutation();
+
+  const [sendOtp, { isLoading: isOtpSending }] = useSendOtpMutation();
 
   const {
     register,
@@ -43,29 +42,21 @@ export function LoginForm() {
 
   const onSubmit = async (values: LoginFormValues) => {
     try {
-      const response = await login({
+      await login({
         email: values.email,
         password: values.password,
       }).unwrap();
 
-      tokenStorage.setAccessToken(response.token);
+      await sendOtp({
+        email: values.email,
+        purpose: "login_verify",
+      }).unwrap();
 
-      const me = await getMe().unwrap();
+      dispatch(setOtpEmail(values.email));
 
-      dispatch(setUser(me.user));
-      // dispatch(setAuthenticated(true));
-      dispatch(setEmailVerified(me.email_verified));
+      toast.success("Verification code sent to your email.");
 
-      if (env.auth.enable2FA) {
-        // TODO: Navigate to OTP page
-        return;
-      }
-
-      toast.success("Login successful");
-
-      navigate(ROUTE_PATHS.PLATFORM.DASHBOARD, {
-        replace: true,
-      });
+      navigate(ROUTE_PATHS.AUTH.VERIFY_OTP);
     } catch (error: any) {
       toast.error(error?.data?.message ?? "Invalid email or password.");
     }
@@ -82,7 +73,7 @@ export function LoginForm() {
           autoComplete="email"
           placeholder="Enter your email"
           startIcon={<Mail className="size-4" />}
-          disabled={isLoading}
+          disabled={isLoginLoading || isOtpSending}
           {...register("email")}
         />
 
@@ -98,7 +89,7 @@ export function LoginForm() {
         <PasswordInput
           autoComplete="current-password"
           placeholder="Enter your password"
-          disabled={isLoading}
+          disabled={isLoginLoading || isOtpSending}
           {...register("password")}
         />
 
@@ -132,9 +123,9 @@ export function LoginForm() {
         type="submit"
         size="lg"
         className="h-11 w-full rounded-xl"
-        disabled={isLoading}
+        disabled={isLoginLoading || isOtpSending}
       >
-        {isLoading ? "Signing In..." : "Sign In"}
+        {isLoginLoading ? "Signing In..." : "Sign In"}
       </Button>
     </form>
   );

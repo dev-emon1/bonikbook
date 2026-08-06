@@ -22,3 +22,5 @@ export const selectPermissions = (state: RootState) =>
 
 export const selectOrganization = (state: RootState) =>
   state.auth.user?.organization ?? null;
+
+export const selectOtpEmail = (state: RootState) => state.auth.otpEmail;

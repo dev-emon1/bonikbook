@@ -77,7 +77,6 @@ export interface AuthUser {
 /* ===========================
    OTP
 =========================== */
-
 export type OtpPurpose = "login_verify" | "email_verify" | "password_reset";
 
 export interface SendOtpRequest {
@@ -85,8 +84,30 @@ export interface SendOtpRequest {
   purpose: OtpPurpose;
 }
 
+export interface SendOtpResponse {
+  message: string;
+
+  expires_in_minutes: number;
+
+  otp_sent: boolean;
+
+  otp_saved: boolean;
+}
+
 export interface VerifyOtpRequest {
   email: string;
+
   code: string;
+
   purpose: OtpPurpose;
+}
+
+export interface VerifyOtpResponse {
+  message: string;
+
+  verified: boolean;
+
+  token: string;
+
+  user: AuthUser;
 }

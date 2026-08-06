@@ -10,4 +10,10 @@ export interface AuthState {
   emailVerified: boolean;
 
   user: AuthUser | null;
+
+  /**
+   * Temporary email used during OTP verification.
+   * Cleared after successful verification or logout.
+   */
+  otpEmail: string | null;
 }
